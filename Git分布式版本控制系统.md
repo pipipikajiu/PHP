@@ -54,6 +54,7 @@
             以更详细的模式输出最近两次的历史记录：git log --pretty=fuller -2
             可以使用format参数来指定具体的输出格式:git log --pretty=format:"%h %cn"d97dd0b Liu Chuan
             #### 表格
+            |   :-----------      | ----------------:                  |
             |   %s                | 提交说明                            | 
             |   %cd               |  提交日期                           |
             |   %an               |  作者的名字                         |
