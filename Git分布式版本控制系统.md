@@ -11,7 +11,9 @@
                 /etc/gitconfig	保存着系统中每个用户及仓库通用配置信息。
                 /.gitconfig
                 /.config/git/config	针对于当前用户的配置信息。
-        -1.4.3 . 设置用户名:git config --global user.name "Liu Chuan" 
+        -1.4.3 . 设置用户名:```git```
+                            git config --global user.name "Liu Chuan" 
+                           ```git```
                  设置密码:git config --global user.email "root@linuxprobe.com"
                  设置vim为默认的文本编辑器：git config --global core.editor vim
 
