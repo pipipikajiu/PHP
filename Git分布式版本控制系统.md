@@ -56,7 +56,7 @@
             比如每行显示一条提交记录: git log --pretty=oneline
             以更详细的模式输出最近两次的历史记录：git log --pretty=fuller -2
             可以使用format参数来指定具体的输出格式:git log --pretty=format:"%h %cn"d97dd0b Liu Chuan
-               %s                | 提交说明                        
+               %s  +              | 提交说明                        
                %cd               |  提交日期                        
                %an               |  作者的名字                      
                %cn               |  提交者的姓名                         
@@ -67,4 +67,35 @@
                %t                |  树对象的简短SHA-1哈希字串           
                %P                |  父对象的完整SHA-1哈希字串           
                %p                |  父对象的简短SHA-1哈希字串           
-               %ad               |  作者的修订时间                     
+               %ad               |  作者的修订时间                    
+- 6 . 还原数据
+    - 6.1 . git reset --hard HEAD^:
+            还原版本,上一个提交版本会叫HEAD^，上上一个提交版本叫做HEAD^^，HEAD~5往上数第五个提交版本.
+    - 6.2 . git reflog:
+            查看所有的历史记录,包括未提交的,查出之后,再用 git reset --hard (历史还原点的SHA-1值),还原版本.
+    - 6.3 . git checkout -- readme.txt:
+            还原文件内容.
+- 7 . 管理标签
+    - 7.1 . git tag v1.0
+            创建标签
+    - 7.2 . git tag
+            查看所有的已有标签
+    - 7.3 . git show v1.0
+            查看此标签的详细信息
+    - 7.4 . git tag v1.1 -m "version 1.1 released" d316fb
+            创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+    - 7.5 . git tag -d v1.0
+            标签删除
+- 8 . 管理分支结构
+    - 8.1 . 创建分支:git branch linuxprobe
+            切换分支:git checkout linuxprobe
+            查看当前分支的情况（会列出该仓库中所有的分支，当前的分支前有＊号）：git branch
+    - 8.2 . 合并分支:git merge linuxprobe
+            删除分支:git branch -d linuxprobe
+- 9 . 内容冲突
+    - 9.1 . 创建分支并切换到该分支命令：git checkout -b 分支名称 
+    - 9.2 . vim 冲突文件,手动删除冲突部分
+    - 9.3 . 查看Git历史提交记录(可以看到分支的变化)：git log --graph --pretty=oneline --abbrev-commit
+
+- 10 . 部署Git服务器
+    
