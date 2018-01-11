@@ -99,4 +99,24 @@
 
 - 10 . 部署Git服务器
 - 11 . Github托管服务
+- 12 . 与git版本库简历ssh连接:
+    - 12.1 . 生成SSH密钥:
+                查看是否已经有了ssh密钥：cd ~/.ssh
+                如果没有密钥则不会有此文件夹，有则备份删除
+                生存密钥：
+                ssh-keygen -t rsa -C “本账户的邮箱”
+                按3个回车，密码为空。
+                Your identification has been saved in /home/tekkub/.ssh/id_rsa.
+                Your public key has been saved in /home/tekkub/.ssh/id_rsa.pub.
+                The key fingerprint is:
+                最后得到了两个文件：私钥文件id_rsa和公钥文件id_rsa.pub 
+    - 12.2 . 添加密钥到ssh ： ssh-add 文件名(id_rsa)
+        - 12.2.1 . 系统如果提示：Identity added: id_rsa (id_rsa) 就表明加载成功;
+        - 12.2.2 . 系统提示：could not open a connection to your authentication agent,则需要执行一下命令：
+                   ssh-agent bash,然后再执行上述的ssh-add id_rsa命令
+        - 12.2.3 . 如果系统提示id_rsa: No such file or directory,  这是系统无法找到私钥文件id_rsa，需要看看当前路径是不是不在.ssh目             录，或者私钥文件改了名字，例如如果建立的时候改成 aa_rsa，则这边命令中也需要相应改一下.
+        - 12.2.4 . 系统提示 command not found，那肯定是你命令敲错字符了.
+        - 12.2.5 . 提示Agent admitted failure to sign using the key，私钥没有加载成功，重试ssh-add
+    - 12.3 . 在github上添加ssh密钥，这要添加的是“id_rsa.pub”里面的公钥。打开https://github.com/,在设置中添加密钥.
+    完成!!!!!
     
