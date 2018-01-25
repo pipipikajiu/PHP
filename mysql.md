@@ -39,7 +39,7 @@
             - 1.3.2 . 二进制字符串
                 - [1] . (bit,binary,varbinary,tinyblob,blog,mediumblob,longblobi)
 ## 3 列类型优化:
-    ```javascript
+```javascript
        字段类型优先级: 整形>date,time>enum,char>varchar>blob,text
        整型:定长,没有国家地区之分,没有字符集的差异,
        字符串类型,在排序时 要考虑字符集与校对集 (排序规则),时间会稍微长点.
@@ -48,7 +48,7 @@
        char:定长,考虑字符集和(排序)校对集,
        varchar:不定长 ,考虑字符集和(排序)校对集,
        text/blob:无法使用内存临时表,排序时只能在磁盘上进行.
-    ```
+```
 
 ## 4 . mysql数据类型:
 ```javascript
