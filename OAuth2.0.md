@@ -2,8 +2,6 @@
 开放式授权协议
 
 现在使用 OAuth 2.0 
-
-
 ```javascript
 - 1 . 请求OAuth登录页
     Request Token URL 未授权的令牌请求服务地址
@@ -21,11 +19,6 @@
     第三方QQ登录授权之后  需要请求一个 带有 特定参数的 URL
     注册时 我方获取的获取appid appkey 
     code(有效时间十分短,10s左右)
-
-
-
-
-
 
     请求 OAuth登录页 
     qq向回调地址 返回 code
