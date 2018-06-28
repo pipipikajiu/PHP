@@ -90,4 +90,10 @@
     mediumtext	可变长度，最多2的24次方-1个字符
     longtext	可变长度，最多2的32次方-1个字符
 ```
-     
+## 5 . navicat更改mysql默认引擎
+
+```php
+- 1. 在navicat或者其他显示mysql的工具中，输入“show engines”，运行sql语句.
+- 2. 打开my.ini,支持 INNODB 引擎模式。修改为　default-storage-engine=INNODB,INNODB 模式如果mysql不能启动，删除data目录下ib开头的日志文件重新启动.
+
+```
