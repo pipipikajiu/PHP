@@ -90,10 +90,52 @@
     mediumtext	可变长度，最多2的24次方-1个字符
     longtext	可变长度，最多2的32次方-1个字符
 ```
-## 5 . navicat更改mysql默认引擎
+     
 
-```php
-- 1. 在navicat或者其他显示mysql的工具中，输入“show engines”，运行sql语句.
-- 2. 打开my.ini,支持 INNODB 引擎模式。修改为　default-storage-engine=INNODB,INNODB 模式如果mysql不能启动，删除data目录下ib开头的日志文件重新启动.
+ ## 5 . mysql优化
+ ```php
+数据库优化的目的 :
+ 避免出现页面访问错误
+  . 由于数据库链接timeout 产生页面 5xx错误
+  . 由于慢查询造成页面无法加载
+  . 由于阻塞造成数据无法提交  
 
-```
+ - 5.1 sql及索引
+ - 5.1.1 . 结构良好的sql
+
+ - 5.1.2 .根据sql建立有效的索引 
+
+ - 5.1.3  . mysql慢查询日志
+查看是否开启慢查询日志 show variables like 'slow_query_log'
+设置没有索引的记录到慢查询日志 set global log_queries_not_using_indexes=on
+查看超过多长时间的sql进行记录到慢查询日志 show variables like 'long_query_time'
+设置慢查询的时间 set long_query_time=1
+
+慢查日志中; Rows_sent:(): 发送行数;Rows_examined:():扫描行数
+慢查日志分析工具 : pt-query-digest 慢查询日志路径
+
+如何通过慢查日志发现有问题sql:
+1 . 查询次数多且每次查询占用时间长的sql;
+2 . I/O大的sql
+    注意pt-query-digest 分析中的Rows examined项 越多证明I/O越大
+3 . 为命中索引的sql
+    Rows_sent:()和Rows_examined:()的对比
+
+
+ - 5.2 数据表结构
+范式 减少冗余 有利于sql的编写
+
+ - 5.3 系统的配置
+ 打开文件数有限制
+ mysql 是基于文件的 没打开一个表 就得打开文件
+ - 5.4 硬件   
+ ```
+
+
+ mysql视图
+ 是一个虚拟表,用于存储查询语句, 第二次直接查询视图就可以. 存储与数据库中
+ 创建方式 : CREATE VIEW 视图明 sql语句
+ 查询视图 : select *from 视图明
+ 视图查询也可加过滤条件 select * from 视图名 where name='abc';
+ 查看当前库下所有视图 : show full tables where table_type like 'VIEW';
+ 删除视图 : drop view if exists 视图名.
