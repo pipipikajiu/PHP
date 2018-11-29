@@ -60,4 +60,29 @@ $this->ExcelPull($name, $header, $datas);
     }
 
 
+
+```
+快速导出excel
+```php
+//导出excel格式表
+
+function exportData($filename,$title,$data){
+	header("Content-type: application/vnd.ms-excel");
+	header("Content-disposition: attachment; filename="  . $filename . ".xls");
+	if (is_array($title)){
+		foreach ($title as $key => $value){
+			echo $value."\t";
+		}
+	}
+	echo "\n";
+	if (is_array($data)){
+		foreach ($data as $key => $value){
+			foreach ($value as $_key => $_value){
+				echo $_value."\t";
+			}
+			echo "\n";
+		}
+	}
+}
+
 ```
