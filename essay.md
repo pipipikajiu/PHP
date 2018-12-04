@@ -40,3 +40,8 @@ public function actionImages() {
             }
         }
 ```
+## 6 . HTML中设置多个class属性的优先级
+```php
+css样式的优先级 是在加载css文件的时候就确定下来的,和后来html里class属性位置前后无关。
+
+```
