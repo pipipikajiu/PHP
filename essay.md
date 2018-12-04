@@ -1,6 +1,13 @@
 ##1 . 乱码问题
 ```php
 iconv("UTF-8","gbk",$new);(linux上需安装libiconv才支持iconv函数)
+
+php页面为utf编码 
+header("Content-type: text/html; charset=utf-8"); 
+
+php页面为gbk编码 
+header("Content-type: text/html; charset=gb2312"); 
+
 ```
 ##2 . php更改文件名称
 ```php
