@@ -45,3 +45,7 @@ public function actionImages() {
 css样式的优先级 是在加载css文件的时候就确定下来的,和后来html里class属性位置前后无关。
 
 ```
+## 7 . yii打印最后一条sql
+```php
+echo $query->createCommand()->getRawSql()
+```
