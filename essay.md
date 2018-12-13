@@ -78,7 +78,19 @@ post_max_size = 32m
 ```php
 goback()要先设置一下返回地址,代码:
  Yii::$app->user->setReturnUrl(Yii::$app->request->referrer); 
-
-
-
+```
+## 10 . 提取链接中的数字
+```php
+function findNum($str=''){
+        $str=trim($str);
+        if(empty($str)){return '';}
+        $temp=array('1','2','3','4','5','6','7','8','9','0');
+        $result='';
+        for($i=0;$i<strlen($str);$i++){
+            if(in_array($str[$i],$temp)){
+                $result.=$str[$i];
+            }
+        }
+        return $result;
+    }
 ```
