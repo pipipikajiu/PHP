@@ -94,3 +94,84 @@ function findNum($str=''){
         return $result;
     }
 ```
+## 11 . yii框架 不加在jq
+```php
+在/config/web.php中:
+components数组中 添加;
+
+        'assetManager'=>[
+            'bundles'=>[
+                'yii\web\JqueryAsset'=>[
+                    'jsOptions'=>[
+                        'position'=>\yii\web\View::POS_HEAD,
+                    ]
+                ]
+            ]
+        ],
+
+```
+## 12 . 前台if判断
+```php
+<?php if(!empty($name[1])){?>
+         		<h3><?php echo $name[1]?></h3>
+                    <?php }else{?>
+         		<h3>用户名</h3>
+     			<?php }?>
+
+```
+
+## 13 . jquery操作select下拉框：取值，赋值，删除
+```php
+-13.1.jquery对select的取值
+        <select id="test">  
+        <option value ="1">测试1</option>  
+        <option value ="2">测试2</option>  
+        <option value="3" >测试3</option>  
+        <option value="4" >测试4</option>  
+        </select>
+        用上面的select举例说明：
+        取得value: var value=$("#test").val();
+        取得text:    var text=$("#test").find("option:selected").text();
+        获取Select选择的索引值: var checkIndex=$("#test ").get(0).selectedIndex;
+        获取Select最大的索引值: var maxIndex=$("#test  option:last").attr("index");
+
+-13.2.jquery对select的赋值
+        jquery对select的动态赋值，动态赋值是实际项目中用的最多的,往往和下拉框的二级联动用在一起。
+        //获得收费单位动态赋值给下拉框
+                function getCityList(){
+                    var provCd=$("#provList").val();
+                    var billStyle=$("#billStyle").val();
+                    if(provCd==""||billStyle=="")
+                        return;
+                    var optionstring="";
+                    $("#cityList").empty();
+                    $.ajax({
+                    url:'<%=root%>/employ/bmfwAction!getBillCompanyBilProvCdAndType',   
+                    type:'post', 
+                    data:'billStyle='+billStyle+'&provCd='+provCd,
+                    success:function(data){
+                        $.each(data,function(key,value){  //循环遍历后台传过来的json数据
+                            optionstring += "<option value=\"" + value.billMchntCd + "\" >" + value.billNm + "</option>";
+                        });
+                        $("#cityList").html("<option value=''>请选收费单位</option> "+optionstring); //获得要赋值的select的id，进行赋值
+                    }
+                });
+                }
+
+
+        -13.2.1下面的追加option
+           $("#test").append("<option value='5'>测试5</option>");   //为Select追加一个Option(下拉项)
+           $("#test").prepend("<option value='0'>测试6</option>");   //为Select插入一个Option(第一个位置)
+
+
+-13.3.jquery对select的删除
+
+         $("#test").empty();用的最多 
+         $("#test  option:last").remove();   //删除Select中索引值最大Option(最后一个)
+         $("#test  option[index='0']").remove();   //删除Select中索引值为0的Option(第一个)
+         $("#test  option[value='3']").remove();   //删除Select中Value='3'的Option
+         $("#test  option[text='4']").remove();   //删除Select中Text='4'的Option
+
+```
+
+
