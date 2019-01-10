@@ -174,4 +174,7 @@ components数组中 添加;
 
 ```
 
-
+## 14 . PHP中设置error_reporting错误报告级别(例如 foerach 下标报错)
+```php
+error_reporting = E_ALL & ~E_NOTICE
+```
