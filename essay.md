@@ -178,3 +178,132 @@ components数组中 添加;
 ```php
 error_reporting = E_ALL & ~E_NOTICE
 ```
+
+## 15. jq动态加载表格和分页
+```javascript
+ $(function(){
+        var sign = 'exhibition';
+        $.ajax({
+            url:'/default/exhibition',
+            dataType:"json",
+            type:'post',
+            data:{sign:sign},
+            success:function(data) {
+                var s_data =data.s_data;
+                if (data.code == 1) {
+                    var exhibition = $("#exhibition");
+                    exhibition.empty();
+					for(var i=0;i<s_data.length;i++) {
+						var option = $("<option>").text(s_data[i].hui_nickname).val(s_data[i].checkin_id);
+						exhibition.append(option);
+					}
+                    var exh = $("#exhibition").val();
+                    $.ajax({
+                        url:'/default/change-show',
+                        dataType:"json",
+                        type:'post',
+                        data:{exh:exh},
+                        success:function(data) {
+                            var title = data.final;
+                            var name = data.new;
+                            var xb = data.data1;
+
+
+                            //分页
+                            var test = data.page;
+                            $('.M-box3').pagination({
+                                pageCount: test,
+                                jump: true,
+                                coping: true,
+                                homePage: '首页',
+                                endPage: '末页',
+                                prevContent: '上页',
+                                nextContent: '下页',
+                                callback: function (api) {
+                                    $.ajax({
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: '/default/change-show',
+                                        data: {
+                                            "num": api.getCurrent(),
+                                            "exh": exh,
+                                        },
+                                        success: function(res) {
+                                            var li_new = res.li_new;
+                                            // console.log(li_new);return false;
+                                            var str = "<tr style='background: lightgrey'>";
+                                            $.each(title,function(i){
+                                                str += "<th>"+title[i]+"</th>";
+                                            });
+                                            str += "</tr>";
+                                            $.each(li_new,function(s){
+                                                str += "<tr>";
+                                                for(var m=0;m<title.length;m++ ){
+                                                    if(li_new[s][title[m]] == null || li_new[s][title[m]] == ''){
+                                                        if(title[m] == '操作'){
+                                                            str += "<td>"+
+                                                                '<a class="layui-btn layui-btn-danger layui-btn-xs edit delete" id="">删除</a>'
+                                                                // "<a class='layui-btn layui-btn-danger layui-btn-xs edit delete' edit='edit' id='data3[s].czz_id' lay-event='del'>删除</a>"
+                                                                + "</td>";
+                                                        }else {
+                                                            str += "<td>" +
+                                                                '-'
+                                                                + "</td>";
+                                                        }
+
+                                                    }else {
+                                                        str += "<td>" +
+                                                            li_new[s][title[m]]
+                                                            + "</td>";
+                                                    }
+                                                }
+
+                                                str += "</tr>";
+                                            });
+                                            $("#te_table").html(str);
+
+
+                                        }
+                                    });
+
+                                }
+                            });
+
+                            //加载table
+
+                            var str = "<tr style='background: lightgrey'>";
+                            $.each(title,function(i){
+                                str += "<th>"+title[i]+"</th>";
+                            });
+                            str += "</tr>";
+                            $.each(name,function(s){
+                                str += "<tr>";
+                                for(var m=0;m<title.length;m++ ){
+                                    if(name[s][title[m]] == null || name[s][title[m]] == ''){
+                                        if(title[m] == '操作'){
+                                            str += "<td>" +
+                                                '<a class="layui-btn layui-btn-danger layui-btn-xs edit delete" edit="edit" id="" lay-event="del">删除</a>'
+                                                + "</td>";
+                                        }else {
+                                            str += "<td>" +
+                                                '-'
+                                                + "</td>";
+                                        }
+                                    }else {
+                                        str += "<td>" +
+                                            name[s][title[m]]
+                                            + "</td>";
+                                    }
+                                }
+                                str += "</tr>";
+                            });
+                            $("#te_table").html(str);
+                        }
+                    });
+
+                }
+            }
+        });
+    });
+
+```
