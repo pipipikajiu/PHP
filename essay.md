@@ -307,3 +307,9 @@ error_reporting = E_ALL & ~E_NOTICE
     });
 
 ```
+
+## 16 php开启短标签(yii2 前台写php代码报错 } )
+```
+在php.ini（配置文件）中设置为on: 
+short_open_tag = On
+```
