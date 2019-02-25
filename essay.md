@@ -308,8 +308,13 @@ error_reporting = E_ALL & ~E_NOTICE
 
 ```
 
-## 16 php开启短标签(yii2 前台写php代码报错 } )
+## 16 . php开启短标签(yii2 前台写php代码报错 } )
 ```
 在php.ini（配置文件）中设置为on: 
 short_open_tag = On
+```
+
+## 17 . 搜索引擎选择： Elasticsearch与Solr
+```php
+
 ```
