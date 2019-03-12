@@ -318,3 +318,11 @@ short_open_tag = On
 ```php
 
 ```
+
+## 18 . a连接提交form表单
+
+```javascript
+
+<a href="javascript:document.form1.submit();" type="submit" class="info-btn-c">确认信息</a>
+
+```
