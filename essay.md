@@ -326,3 +326,69 @@ short_open_tag = On
 <a href="javascript:document.form1.submit();" type="submit" class="info-btn-c">确认信息</a>
 
 ```
+
+## 19 . 二维数组去重
+```php
+ function array_unset_tt($arr,$key){
+        //建立一个目标数组
+        $res = array();
+        foreach ($arr as $value) {
+            //查看有没有重复项
+            if(isset($res[$value[0][$key]])){
+                unset($value[0][$key]);  //有：销毁
+            }else{
+                $res[$value[0][$key]] = $value;
+            }
+        }
+        return $res;
+    }
+```
+## 20. yii 更改字段+1
+```php
+User::updateAllCounters(['total'=>5], ['status'=>1])
+翻译为sql语句大概就是：
+UPDATE User SET total=total+5 WHERE status=1
+```
+
+## 21. jq判断checkbox是否被选中
+```javascript
+//jq判断checkbox是否被选中
+$('#checkbox9').is(':checked')
+//移除数组最后一位
+shopid.pop();
+//jq像数组插入值
+array.push()
+```
+
+## 22. php获取字符串中的数字
+```php
+$patterns = "/\d+/";//结合正则获取字符串中数字
+preg_match_all($patterns,$specifications,$arr);
+
+
+
+
+ public static function price($hui_id,$type_name,$area){
+
+        $query = BaoJia::find();
+        $query->select("h.unit_yu_price,from_unixtime(h.create_time,'%Y-%m-%d %H:%i:%s') `create_time`");
+        $query->from('hui_goods as h');
+        $query->innerJoin('goods_type as ty','ty.goods_type_id=h.type_id');
+        $query->where('status = 0');
+        if(!empty($hui_id)){
+            $query->andWhere(['h.hui_id'=>$hui_id]);
+        }
+        $query->andWhere(['ty.type_name'=>$type_name]);
+        $query->andWhere(['h.goods_name'=>$area]);
+        $res =$query->asArray()->all();
+//        echo $query->createCommand()->getRawSql();die();
+        return $res;
+    }
+```
+## 23. yii更新操作
+```php
+ return GoodsShopcar::updateAll(['num'=> $num], ['id'=>$goods_id]);
+
+$sql1 ="UPDATE goods_shopcar SET num = " .$num.',specifications='."'".$spec."'".',update_time='.$create_time.',money='.$money ." where czs_number =".$czs_number." and name ="."'".$entry;
+$res = \Yii::$app->db->createCommand($sql1)->queryAll();
+```
