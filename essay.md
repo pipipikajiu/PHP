@@ -392,3 +392,32 @@ preg_match_all($patterns,$specifications,$arr);
 $sql1 ="UPDATE goods_shopcar SET num = " .$num.',specifications='."'".$spec."'".',update_time='.$create_time.',money='.$money ." where czs_number =".$czs_number." and name ="."'".$entry;
 $res = \Yii::$app->db->createCommand($sql1)->queryAll();
 ```
+
+## 24. 微信登陆相关
+```php
+$code = $_GET['code'];
+$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx37c8063768cbe505&secret=e597ad28b7637165c4d700605e506787&code={$code}&grant_type=authorization_code";
+$str= file_get_contents($url);
+$access = json_decode($str,true);
+$token = $access['access_token'];
+$openid = $access['openid'];
+$userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token={$token}&openid={$openid}&lang=zh_CN ";
+$user = file_get_contents($userUrl);
+$open = json_decode($user);
+```
+```php
+微信网页授权access_token和普通access_token区别:
+
+有效期：两者有效时间都是7200s。
+使用范围：通过网页授权获得的access_token，只能获取到对应的微信用户信息，与微信用户是一对一关系；而普通的access_token在有效期内可以使用，可以获取所有用户信息。
+次数限制：普通access_token每天获取最多次数为2000次，而网页授权的access_token获取次数没有限制。
+
+获取网页授权access_token(返回token和openid):
+$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx37c8063768cbe505&secret=e597ad28b7637165c4d700605e506787&code={$code}&grant_type=authorization_code";
+
+获取普通access_token(只返回token):
+$url =  "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx37c8063768cbe505&secret=e597ad28b7637165c4d700605e506787";
+           
+获取微信用户基本信息           
+$userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token={$token}&openid={$openid}&lang=zh_CN ";           
+```
